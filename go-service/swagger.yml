@@ -1,0 +1,72 @@
+---
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Recruit Proxy Server
+paths:
+  /clients.json:
+    get:
+      summary: Get all clients
+      produces:
+        - application/json
+      operationId: getClients
+      responses:
+        200:
+          description: Client list JSON data
+          schema:
+            $ref: "#/definitions/Clients"
+        500:
+          description: Internal error
+  /invoices.json:
+    post:
+      summary: Get invoice by specified client ID
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: client_id
+          description: Client ID
+          schema:
+            type: object
+            required:
+            - client_id
+            properties:
+              client_id:
+                type: string
+      operationId: getInvoices
+      responses:
+        200:
+          description: Invoices JSON data
+          schema:
+              $ref: "#/definitions/Invoices"
+        500:
+          description: Internal error
+        400:
+          description: Invalid data
+          schema:
+            description: Error message body
+            type: string
+definitions:
+  Clients:
+    type: object
+    properties:
+      clients:
+        type: array
+        items:
+          type: string
+  Invoices:
+    type: object
+    properties:
+      invoices:
+        type: array
+        items:
+          type: object
+          properties:
+            total:
+              type: string
+            services:
+              type: string
+            customer:
+              type: string

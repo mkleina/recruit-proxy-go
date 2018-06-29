@@ -4,11 +4,17 @@ services:
   rabbitmq:
     image: rabbitmq:3.6.9-management
     ports:
-      - 15672:5672
+      - 15672:15672
+      - 5672:5672
   ruby-invoices:
     build: ./ruby-invoices
     environment:
       - RABBIT_HOST=rabbitmq
     depends_on:
       - rabbitmq
-
+  go-service:
+    build: ./go-service
+    ports:
+      - 3000:3000
+    depends_on:
+      - ruby-invoices
