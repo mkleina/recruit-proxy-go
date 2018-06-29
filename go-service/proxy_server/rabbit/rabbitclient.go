@@ -53,7 +53,7 @@ func publish(channel *amqp.Channel, exchange string, routingKey string, replyTo 
 	)
 }
 
-// NewClient created new RabbitMQ / AMQP client
+// NewClient creates new RabbitMQ / AMQP client
 func NewClient(user string, pass string, host string, port int) *RabbitClient {
 	return &RabbitClient{
 		user: user,
